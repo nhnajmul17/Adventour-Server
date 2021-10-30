@@ -46,6 +46,13 @@ async function run() {
             res.json(result)
         })
 
+        //get all bookings
+        app.get('/bookings', async (req, res) => {
+            const cursor = bookingCollection.find({})
+            const result = await cursor.toArray()
+            res.send(result)
+        })
+
 
 
 
