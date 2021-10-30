@@ -19,6 +19,37 @@ async function run() {
     try {
         await client.connect();
 
+        const database = client.db("adventour");
+        const offersCollection = database.collection("touroffers");
+        const bookingCollection = database.collection("bookings")
+
+        //GET ALL OFFERS
+        app.get('/offers', async (req, res) => {
+            const cursor = offersCollection.find({});
+            const result = await cursor.toArray()
+            res.send(result)
+        })
+
+        //GET A SINGLE OFFER
+        app.get('/offers/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { _id: ObjectId(id) };
+            const result = await offersCollection.findOne(query);
+            res.send(result)
+        })
+
+
+        //post A booking
+        app.post('/bookings', async (req, res) => {
+            const booking = req.body
+            const result = await bookingCollection.insertOne(booking)
+            res.json(result)
+        })
+
+
+
+
+
 
 
     }
