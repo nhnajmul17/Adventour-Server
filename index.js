@@ -54,8 +54,8 @@ async function run() {
         })
 
 
-        //get my orders
-        app.get("/myorders/:email", async (req, res) => {
+        //get my bookings
+        app.get("/mybookings/:email", async (req, res) => {
             const email = req.params.email
             const query = { email: email }
             const result = await bookingCollection.find(query).toArray();
@@ -63,7 +63,7 @@ async function run() {
         });
 
         //delet an event
-        app.delete("/myorders/:id", async (req, res) => {
+        app.delete("/mybookings/:id", async (req, res) => {
             const id = (req.params.id);
             const query = { _id: ObjectId(id) }
             const result = await bookingCollection.deleteOne(query);
