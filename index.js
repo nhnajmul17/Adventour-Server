@@ -21,7 +21,8 @@ async function run() {
 
         const database = client.db("adventour");
         const offersCollection = database.collection("touroffers");
-        const bookingCollection = database.collection("bookings")
+        const bookingCollection = database.collection("bookings");
+        const newsCollection = database.collection("news");
 
         //GET ALL OFFERS
         app.get('/offers', async (req, res) => {
@@ -94,7 +95,13 @@ async function run() {
             res.send(result);
         });
 
+        //get All News
+        app.get('/news', async (req, res) => {
+            const cursor = newsCollection.find({});
+            const result = await cursor.toArray()
+            res.send(result)
 
+        })
 
 
 
