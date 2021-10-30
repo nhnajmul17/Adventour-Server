@@ -54,6 +54,14 @@ async function run() {
         })
 
 
+        //delete a booking
+        app.delete("/bookings/:id", async (req, res) => {
+            const id = (req.params.id);
+            const query = { _id: ObjectId(id) }
+            const result = await bookingCollection.deleteOne(query);
+            res.send(result);
+        });
+
         //get my bookings
         app.get("/mybookings/:email", async (req, res) => {
             const email = req.params.email
@@ -62,7 +70,7 @@ async function run() {
             res.send(result);
         });
 
-        //delet an event
+        //delet a mybooking
         app.delete("/mybookings/:id", async (req, res) => {
             const id = (req.params.id);
             const query = { _id: ObjectId(id) }
