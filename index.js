@@ -38,6 +38,13 @@ async function run() {
             res.send(result)
         })
 
+        //ADD A NEW OFFER
+        app.post('/offers', async (req, res) => {
+            const offers = req.body
+            const result = await offersCollection.insertOne(offers)
+            res.json(result)
+        })
+
 
         //post A booking
         app.post('/bookings', async (req, res) => {
@@ -61,6 +68,7 @@ async function run() {
             const result = await bookingCollection.deleteOne(query);
             res.send(result);
         });
+
 
         //get my bookings
         app.get("/mybookings/:email", async (req, res) => {
