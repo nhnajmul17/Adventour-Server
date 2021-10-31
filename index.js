@@ -12,7 +12,7 @@ app.use(cors())
 app.use(express.json())
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.3zfz5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-console.log(uri);
+
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 async function run() {
@@ -69,6 +69,21 @@ async function run() {
             res.send(result)
         })
 
+        //update a booking
+        app.put('/bookings/:id', async (req, res) => {
+            const id = req.params.id
+            const filter = { _id: ObjectId(id) }
+            const options = { upsert: true }
+            const updateDoc = {
+                $set: {
+                    status: 'approved'
+                },
+
+            };
+            const result = await bookingCollection.updateOne(filter, updateDoc, options)
+            res.send(result)
+
+        })
 
         //delete a booking
         app.delete("/bookings/:id", async (req, res) => {
